@@ -29,8 +29,7 @@ code1
         }
         closedir(dir);
 ```
-### Penjelasan no.1
-
+Algorintma diatas menampung semua file pada direktori, lalu 
 
 ## Soal2
 2.	Pada suatu hari Kusuma dicampakkan oleh Elen karena Elen dimenangkan oleh orang lain. Semua kenangan tentang Elen berada pada file bernama “elen.ku” pada direktori “hatiku”. Karena sedih berkepanjangan, tugas kalian sebagai teman Kusuma adalah membantunya untuk menghapus semua kenangan tentang Elen dengan membuat program C yang bisa mendeteksi owner dan group dan menghapus file “elen.ku” setiap 3 detik dengan syarat ketika owner dan grupnya menjadi “www-data”. Ternyata kamu memiliki kendala karena permission pada file “elen.ku”. Jadi, ubahlah permissionnya menjadi 777. Setelah kenangan tentang Elen terhapus, maka Kusuma bisa move on.
@@ -50,7 +49,7 @@ code2
       remove(direktori);
     sleep(3);
 ```
-### Penjelasan no.2
+
 
 
 ## Soal3
@@ -120,7 +119,7 @@ int main(){
     	}
 }
 ```
-### Penjelasan no.3
+
 
 ## Soal4
 4.	Dalam direktori /home/[user]/Documents/makanan terdapat file makan_enak.txt yang berisikan daftar makanan terkenal di Surabaya. Elen sedang melakukan diet dan seringkali tergiur untuk membaca isi makan_enak.txt karena ngidam makanan enak. Sebagai teman yang baik, Anda membantu Elen dengan membuat program C yang berjalan setiap 5 detik untuk memeriksa apakah file makan_enak.txt pernah dibuka setidaknya 30 detik yang lalu (rentang 0 - 30 detik).
@@ -147,9 +146,8 @@ code4
     char *namaFile = "makan_sehat";
     char *ekstensi = ".txt";
     stat(direktori, &st);
-    atimes = st.st_atime; //access time
-
-    if(difftime(t, atimes)<=30)
+    atimes = st.st_atime; //waktu akses
+     if(difftime(t, atimes)<=30)
     { char buffer[100];
       FILE *fp = NULL;
       sprintf(buffer, "%s%s%d%s", direktori2, namaFile, i, ekstensi);
@@ -220,4 +218,4 @@ int main(){
 return 0;  
 }
 ```
-### Penjelasan no.5
+
