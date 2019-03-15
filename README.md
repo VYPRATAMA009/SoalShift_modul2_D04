@@ -135,7 +135,30 @@ Catatan:
 -	Contoh nama file : makan_sehat1.txt, makan_sehat2.txt, dst
 ```
 code4
-belum selesai
+   while(1) {
+   //main program here
+    time_t atimes;
+    time_t t = time(NULL);
+    char *direktori2 = "/home/nanta/Documents/makanan/";
+    struct stat st;
+    struct tm timeInfo;
+   // time(&t);
+   // timeInfo = *localtime(&t);
+    char *namaFile = "makan_sehat";
+    char *ekstensi = ".txt";
+    stat(direktori, &st);
+    atimes = st.st_atime; //access time
+
+    if(difftime(t, atimes)<=30)
+    { char buffer[100];
+      FILE *fp = NULL;
+      sprintf(buffer, "%s%s%d%s", direktori2, namaFile, i, ekstensi);
+      fp = fopen(buffer, "w"); 
+      i++;
+      fclose(fp);
+    }
+    sleep(5);
+  }
 ```
 
 ## Soal5
