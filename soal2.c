@@ -35,7 +35,7 @@ int main() {
     char *direktori="/home/nanta/Downloads/Sisop-modul2/Soal_Shift_Modul_2/hatiku/elen.ku";
     char *nama="www-data";
     struct stat info;
-    chmod (direktori, 777);
+    chmod (direktori, 0777);
     //char *elen = "elen.ku";
     //strcat(direktori, elen);
     stat(direktori, &info);  // Error check omitted
