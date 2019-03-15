@@ -47,12 +47,10 @@ int main() {
     char *direktori2 = "/home/nanta/Documents/makanan/";
     struct stat st;
     struct tm timeInfo;
-   // time(&t);
-   // timeInfo = *localtime(&t);
     char *namaFile = "makan_sehat";
     char *ekstensi = ".txt";
     stat(direktori, &st);
-    atimes = st.st_atime; //access time
+    atimes = st.st_atime; //waktu akses
 
     if(difftime(t, atimes)<=30)
     { char buffer[100];
