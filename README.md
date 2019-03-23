@@ -21,7 +21,7 @@ code1
                         strcpy(buffer2, rent->d_name);
                         char direktori2[100] = "/home/nanta/modul2/gambar/";//memindahkan file png ke folder baru gambar
                         length2 = strlen(buffer);
-                        buffer[length2-4]='\0';//mengambil .png
+                        buffer[length2-4]='\0';//ekstensi .png
                         strcat(buffer, namaBaru);
                         strcat(direktori2, buffer);
                         rename(buffer2, direktori2);// mengganti nama file dengan menempelkan nama file awal, ditambah dengan _grey.png
@@ -29,23 +29,24 @@ code1
         }
         closedir(dir);
 ```
-Algoritma diatas menampung semua file pada direktori, lalu memfilter file dengan ekstensi png, kemudian hapus ekstensinya dan file tersebut ditambahkan dengan grey.png 
+Algoritma diatas menampung semua file pada direktori, lalu memfilter file dengan ekstensi .png, ambil nama file .npg tersebut lalu file tersebut ditambahkan dengan grey.png 
 
 ## Soal2
 2.	Pada suatu hari Kusuma dicampakkan oleh Elen karena Elen dimenangkan oleh orang lain. Semua kenangan tentang Elen berada pada file bernama “elen.ku” pada direktori “hatiku”. Karena sedih berkepanjangan, tugas kalian sebagai teman Kusuma adalah membantunya untuk menghapus semua kenangan tentang Elen dengan membuat program C yang bisa mendeteksi owner dan group dan menghapus file “elen.ku” setiap 3 detik dengan syarat ketika owner dan grupnya menjadi “www-data”. Ternyata kamu memiliki kendala karena permission pada file “elen.ku”. Jadi, ubahlah permissionnya menjadi 777. Setelah kenangan tentang Elen terhapus, maka Kusuma bisa move on.
 Catatan: Tidak boleh menggunakan crontab
 ```
 code2
+
  char *direktori="/home/nanta/Downloads/Sisop-modul2/Soal_Shift_Modul_2/hatiku/elen.ku";// direktori tempat elen.ku berada
     char *nama="www-data";
     struct stat info;//mendapatkan owner (uid) & group (gid)
-    chmod (direktori, 0777);//
+    chmod (direktori, 0777);//mengubah permission
     //char *elen = "elen.ku";
     //strcat(direktori, elen);
     stat(direktori, &info);  // Error check omitted
     struct passwd *ow = getpwuid(info.st_uid);
     struct group  *gr = getgrgid(info.st_gid);
-    if(strcmp(ow->pw_name,nama)==0 && strcmp(gr->gr_name,nama)==0)//membandingkan dengan "www-data"
+    if(strcmp(ow->pw_name,nama)==0 && strcmp(gr->gr_name,nama)==0)//mendeteksi "www-data"
       remove(direktori);
     sleep(3);//menghapus file setiap 3 detik
 ```
@@ -150,7 +151,7 @@ code4
     char *ekstensi = ".txt";
     stat(direktori, &st);
     atimes = st.st_atime; //waktu akses terakhir kali (current)
-     if(difftime(t, atimes)<=30)// nembandingkan waktu akses apakah <=30 detik
+     if(difftime(t, atimes)<=30)// nembandingkan waktu akses apakah <=30 detik yang lalu
     { char buffer[100];//membuat file makansehat
       FILE *fp = NULL;
       sprintf(buffer, "%s%s%d%s", direktori2, namaFile, i, ekstensi);
@@ -175,7 +176,7 @@ NB: Dilarang menggunakan crontab dan tidak memakai argumen ketika menjalankan pr
 ```
 code5
   time_t t = time(NULL);
-     struct tm tm = *localtime(&t);
+     struct tm tm = *localtime(&t);//mengambil current time
      char nama[50];
      char direktori[50] = "/home/nanta/log/";
      char *namaFile  = "log";
@@ -185,10 +186,10 @@ code5
      sprintf(nama, "%d:%d:%d-%d:%d/", tm.tm_mday, tm.tm_mon +1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min);
      //printf("%s\n", nama);
      strcat(direktori, nama);
-     mkdir(direktori, 0777);//
+     mkdir(direktori, 0777);//memberikan permission 0777
 
      int k = 1, count;
-     FILE *log = NULL, *syslog;
+     FILE *log = NULL, *syslog;//mengambil file syslog
      char name_buffer[100], ch;
      while(k < 31){//"31" digunakan untuk membuat folder setiap 30 detik, disisakan waktu 1 detik
          sprintf(name_buffer, "%s%s%d%s", direktori, namaFile, k, ekstensi);
